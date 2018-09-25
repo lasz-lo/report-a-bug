@@ -1,0 +1,70 @@
+<html>
+<head>
+  <title>Report A Bug</title>
+  <link rel="stylesheet" href="report.css">
+  <link rel="stylesheet" href="assets.css">
+</head>
+<body style="overflow: hidden;">
+
+<div id="report" class="reportabug hidden_report">
+  <span id="head">Report A Bug</span>
+
+  <br>
+  <label for="textfield"></label><br><textarea maxlength="500" id="textfield" rows="10" onkeyup="maxLen()"></textarea>
+  <br>
+  <span id="maxlen">500</span>
+  <button id="sendButton" class="button" onclick="sendReport()">Send Report</button>
+</div>
+
+</body>
+
+<script>
+
+  function expandReport() {
+
+    document.getElementById("report").classList.toggle("expand");
+    document.getElementById("report").classList.toggle("hidden");
+  }
+
+  function maxLen() {
+    let len = document.getElementById("textfield").value.length;
+    let remain = 500 - len;
+    document.getElementById("maxlen").innerHTML = remain;
+  }
+
+  function sendReport() {
+    let app = "report-a-bug";
+    let report = encodeURI(document.getElementById("textfield").value);
+
+    document.getElementById("report").classList.toggle("sent");
+    document.getElementById("sendButton").classList.toggle("invis");
+    document.getElementById("maxlen").classList.toggle("invis");
+    document.getElementById("textfield").classList.toggle("invis");
+    setTimeout(function() {
+      document.getElementById("report").classList.toggle("sent2");
+    }, 500);
+
+    setTimeout(function() {
+      document.getElementById("report").classList.toggle("invis");
+    }, 1000);
+
+
+  postReport("http://127.0.0.1:3000/report", report, app);
+  }
+
+
+  function postReport(url, report, app) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = () => {
+      if(xhr.readyState === 4 && xhr.status === 200) {
+        console.log(xhr.responseText);
+      }
+    };
+    let content = JSON.stringify({"report": report, "app": app});
+    xhr.send(content);
+  }
+
+</script>
+</html>
