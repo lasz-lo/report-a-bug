@@ -1,4 +1,4 @@
 .idea/
 node_modules/
-report-a-bug.iml
-
+/report-a-bug.iml
+reports.log
