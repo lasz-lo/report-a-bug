@@ -14,8 +14,6 @@ To set up the serve-side however, you just have to set the port and specify a li
 
 ## TODOs
 
-- Migrate the js from src/client/index.html into a seperate script.js file.
-
 - Properties file for the server. More information on which values one actually might want to change.
 
 
