@@ -1,24 +1,31 @@
 <html>
+
 <head>
   <title>Report A Bug</title>
   <link rel="stylesheet" href="report.css">
   <link rel="stylesheet" href="assets.css">
 </head>
+
 <body style="overflow: hidden;">
 
-<div id="report" class="reportabug hidden_report">
-  <span id="head">Report A Bug</span>
+  <div id="report" class="reportabug hidden_report">
+    <span id="head">Report A Bug</span>
+    <div style="float: right; font-size: .9em; margin-right: .5em;" class="tooltip">?
+      <span>This reports a bug to the developer(s).</span></div>
 
-  <br>
-  <label for="textfield"></label><br><textarea maxlength="500" id="textfield" rows="10" onkeyup="maxLen()"></textarea>
-  <br>
-  <span id="maxlen">500</span>
-  <button id="sendButton" class="button" onclick="sendReport()">Send Report</button>
-</div>
+    <br>
+    <label for="textfield"></label>
+    <br><textarea maxlength="500" id="textfield" rows="10" onkeydown="maxLen();"></textarea>
+    <br>
+    <span id="maxlen">500</span>
+    <button id="sendButton" style="margin-top: .2em;" class="button button_report" onclick="sendReport();">Send Report</button>
+  </div>
 
 </body>
 
 <script>
+    const app = "report-a-bug";
+
 
   function expandReport() {
 
@@ -33,23 +40,22 @@
   }
 
   function sendReport() {
-    let app = "report-a-bug";
     let report = encodeURI(document.getElementById("textfield").value);
 
     document.getElementById("report").classList.toggle("sent");
     document.getElementById("sendButton").classList.toggle("invis");
     document.getElementById("maxlen").classList.toggle("invis");
     document.getElementById("textfield").classList.toggle("invis");
-    setTimeout(function() {
+    setTimeout(function () {
       document.getElementById("report").classList.toggle("sent2");
     }, 500);
 
-    setTimeout(function() {
+    setTimeout(function () {
       document.getElementById("report").classList.toggle("invis");
     }, 1000);
 
 
-  postReport("http://127.0.0.1:3000/report", report, app);
+    postReport("http://127.0.0.1:3000/report", report, app);
   }
 
 
@@ -58,13 +64,14 @@
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = () => {
-      if(xhr.readyState === 4 && xhr.status === 200) {
+      if (xhr.readyState === 4 && xhr.status === 200) {
         console.log(xhr.responseText);
       }
     };
-    let content = JSON.stringify({"report": report, "app": app});
+    let content = JSON.stringify({ "report": report, "app": app });
     xhr.send(content);
   }
 
 </script>
+
 </html>

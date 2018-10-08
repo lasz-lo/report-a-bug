@@ -1,0 +1,63 @@
+.button {
+  cursor: pointer;
+  border: .1em solid rgba(0, 0, 0, .2);
+  font-family: sans-serif;
+  font-weight: bold;
+  background-color: #888;
+  padding: .5em 1em;
+  color: #fff;
+  border-radius: .2em;
+  box-shadow: rgba(0, 0, 0, .5) 0 .05em .2em;
+  -o-transition: 200ms;
+  -moz-transition: 200ms;
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}
+
+.button:hover {
+  border-color: rgba(0, 0, 0, .4);
+  background-color: #999;
+}
+
+.large {
+  font-size: 1.5em;
+}
+
+.tooltip {
+  font-weight: bolder;
+  text-align: center;
+  height: .8em;
+  width: .8em;
+  font-family: sans-serif;
+  background-color: #999;
+  color: #fff;
+  padding: .5em;
+  border-radius: 5em;
+  line-height: .8em;
+}
+
+.tooltip span {
+  font-weight: normal;
+  font-size: .8em;
+  visibility: hidden;
+  display: flex;
+  background-color: rgba(0, 0, 0, .7);
+  color: rgba(255, 255, 255, .7);
+  text-align: center;
+  border: solid .1em rgba(0, 0, 0, .4);
+  -webkit-border-radius: .2em;
+  -moz-border-radius: .2em;
+  border-radius: .2em;
+  padding: .2em .2em;
+  width: fit-content;
+  width: -moz-fit-content;
+  white-space: nowrap;
+  line-height: 1em;
+}
+
+.tooltip:hover span {
+  transform: translate3d(0, -10px, 0);
+  transition: all .2s ease-in-out;
+
+  visibility: visible;
+}

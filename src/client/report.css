@@ -1,26 +1,35 @@
 .reportabug:hover {
   height: 15em;
-  -webkit-transition: height 1s;
-  -moz-transition: height 1s;
-  -ms-transition: height 1s;
-  -o-transition: height 1s;
-  transition: height 1s;
+  width: 15em;
+  -webkit-transition: height 1s, width 1s;
+  -moz-transition: height 1s, width 1s;
+  -ms-transition: height 1s, width 1s;
+  -o-transition: height 1s, width 1s;
+  transition: height 1s, width 1s;
 }
 
-.reportabug:hover .button {
-  display: inline-block;
-}
-
-.reportabug:hover  #textfield {
-  display: inline-block;
-}
-
-.reportabug:hover #maxlen {
+.reportabug:hover .button_report {
   display: inline-block;
 }
 
 .hidden_report {
   height: 2em;
+}
+
+.reportabug:hover #textfield {
+  width: 90%;
+  height: 60%;
+  -webkit-transition: width 1s;
+  -moz-transition: width 1s;
+  -ms-transition: width 1s;
+  -o-transition: width 1s;
+  transition: width 1s;
+}
+
+.reportabug:hover #maxlen {
+  display: flex;
+  float: left;
+  margin-left: .5em;
 }
 
 .invis {
@@ -33,10 +42,14 @@
 }
 
 #textfield {
-  display: none;
+  width: 0;
+  height: 60%;
   font-family: sans-serif;
-  width: 10em;
-  resize: none;
+  -webkit-transition: width 1s;
+  -moz-transition: width 1s;
+  -ms-transition: width 1s;
+  -o-transition: width 1s;
+  transition: width 1s;
 }
 
 #textlabel {
@@ -44,11 +57,12 @@
 }
 
 .reportabug {
-  -webkit-transition: height 1s;
-  -moz-transition: height 1s;
-  -ms-transition: height 1s;
-  -o-transition: height 1s;
-  transition: height 1s;
+  box-shadow: rgba(0, 0, 0, .5) 0 .05em .2em;
+  -webkit-transition: height 1s, width 1s;
+  -moz-transition: height 1s, width 1s;
+  -ms-transition: height 1s, width 1s;
+  -o-transition: height 1s, width 1s;
+  transition: height 1s, width 1s;
   position: absolute;
   bottom: 0;
   left: 15%;
@@ -63,6 +77,7 @@
 #head {
   font-family: sans-serif;
   font-weight: bold;
+  color: #666;
 }
 
 .sent {
