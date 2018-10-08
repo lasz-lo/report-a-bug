@@ -7,6 +7,8 @@ The report is posted to /report and contains the actual text, that is entered by
 
 To prevent massive spam from happening, the server only accepts one report per IP every 30 seconds. This can be changed in the index.js file of the server.
 
+The actual report is limited to 500 characters. When changing this value, make sure to modify it both in the server source and the client source.
+
 ## Setup
 To set up **report-a-bug**, you have to integrate the client-side component from /src/client. You can have a look at the index.html to get an idea of how to setup the client-side. You can also edit the **app** variable, to set it to your unique app-identifier. Make sure you also add it to the list of allowed apps in the index.js of the server. Note that you also have to supply the ip-adress of your server.
 
