@@ -5,6 +5,8 @@
 
 The report is posted to /report and contains the actual text, that is entered by the user, as well as an app-identifier, that is saved alog the report with a timestamp.
 
+To prevent massive spam from happening, the server only accepts one report per IP every 30 seconds. This can be changed in the index.js file of the server.
+
 ## Setup
 To set up **report-a-bug**, you have to integrate the client-side component from /src/client. You can have a look at the index.html to get an idea of how to setup the client-side. You can also edit the **app** variable, to set it to your unique app-identifier. Make sure you also add it to the list of allowed apps in the index.js of the server. Note that you also have to supply the ip-adress of your server.
 
@@ -12,7 +14,9 @@ To set up the serve-side however, you just have to set the port and specify a li
 
 ## TODOs
 
-- migrate the js from src/client/index.html into a seperate script.js file.
+- Migrate the js from src/client/index.html into a seperate script.js file.
+
+- Properties file for the server. More information on which values one actually might want to change.
 
 
 ### Notes
