@@ -1,23 +1,33 @@
 # report-a-bug
 
-## Concept
-**report-a-bug** aims to be an easy to use tool to get feedback from any web application. The client side is implemented with pure html/css/js, to ensure a maximum of compatibility to all clients.
+**report-a-bug** aims to be an easy to use tool to get feedback from any web application or webpage. The client side is implemented with pure html/css/js, to ensure a maximum of compatibility to all clients.
+Each report is saved to an individual file containing a timestamp and the app-identifier.
 
-The report is posted to /report and contains the actual text, that is entered by the user, as well as an app-identifier, that is saved alog the report with a timestamp.
+## Getting Started
+### Setup
+First step of setting up **report-a-bug** is to integrate the html/css component into your webpage. You can have a look at /src/client/index.html to get familiar with the structure and also tweak the looks by your liking.
+Keep in mind to also put the script.js file into your desired directory.
 
-To prevent massive spam from happening, the server only accepts one report per IP every 30 seconds. This can be changed in the index.js file of the server.
+Setup for the server is as simple as just running the application. Keep in mind that node.js is required to do so. I'm developing on version 8.12.0 but chances are that this works under different versions too. I have not tested it, though. If you happen to use another release I'd be happy to receive your feedback.
 
-The actual report is limited to 500 characters. When changing this value, make sure to modify it both in the server source and the client source.
+### Configuration
+The configuration can simply be done via the two properties.json files, each located in /src/client or /src/server. Following is a list of properties, with a brief description.
 
-## Setup
-To set up **report-a-bug**, you have to integrate the client-side component from /src/client. You can have a look at the index.html to get an idea of how to setup the client-side. You can also edit the **app** variable, to set it to your unique app-identifier. Make sure you also add it to the list of allowed apps in the index.js of the server. Note that you also have to supply the ip-adress of your server.
+- Client-Side:
+    - app: supplies the app-identifier. Is matched against 'apps' on the server side.
+    - server: contains the ip + port of the server component.
+    - path: the individual path that is configured in the server properties.
+    - maxChars: the maximum characters that a report might contain. This must not match with the maxChars of the server properties, but beware that a report will be rejected if exceeding the servers maximum characters property.
 
-To set up the serve-side however, you just have to set the port and specify a list of identifier(s), which your apps may use. Make sure to test this properly, as the report gets dumped if not supplying a valid identifier. If done correctly, you just have to start the server via node.js.
-
+- Server-Side:
+    - path: the individual path that a request must use.
+    - port: the port that the server is listening on.
+    - timeoutPerIp: the time in ms that must pass before the server accepts another report from one ip.
+    - maxChars: the maximum characters that a report may contain. Beware that a report, exceeding this limit, will not be saved and instead dumped forever. You may want to set this to the same value as in the client properties or vice versa.
+    - apps: an array containing valid app-identifiers. Every identifier in this list will be accepted when supplied by a request from the client-side.
 ## TODOs
 
-- Properties file for the server. More information on which values one actually might want to change.
-
+- https support
 
 ### Notes
 
