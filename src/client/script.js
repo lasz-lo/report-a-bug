@@ -1,25 +1,12 @@
-var app;
-var server;
-var path;
+const app = "report-a-bug"; // Put your app-identifier here
 
-init();
+const server = "127.0.0.1:3000"; // Put your server IP here
+const path = "/report" // Put your custom path here.
 
-async function init() {
 
-    //FIXME: fetch properties
-    loadJSON("properties.json", (json) => {
-        app = json.app;
-        server = json.server;
-        path = json.path;
-    })
+addEventListeners();
 
-    addEventListeners();
-}
 
-async function loadProperties() {
-    let json = await readTextFile("properties.json");
-    const properties = JSON.parse();
-}
 
 function addEventListeners() {
     byId("textfield").addEventListener("keyup", maxLen);
@@ -53,7 +40,7 @@ function sendReport() {
     }, 1000);
 
 
-    postReport(`${server}${path}`, report, app);
+    postReport("http://127.0.0.1:3000/report", report, app);
 }
 
 
@@ -74,17 +61,4 @@ function postReport(url, report, app) {
 // Wrapper for document.getElementById() to make everything easier.
 function byId(id) {
     return document.getElementById(id);
-}
-
-function loadJSON(path, callback) {
-
-    var xobj = new XMLHttpRequest();
-    xobj.overrideMimeType("application/json");
-    xobj.open('GET', path, true);
-    xobj.onreadystatechange = function () {
-        if (xobj.readyState == 4 && xobj.status == "200") {
-            callback(JSON.parse(xobj.responseText));
-        }
-    };
-    xobj.send(null);
 }
