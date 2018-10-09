@@ -23,16 +23,20 @@ function initProperties() {
   maxChars = properties.maxChars;
   reportsFolder = properties.reportsFolder;
 
-  if (!fs.existsSync(reportsFolder)){
-    console.log(`Created ${reportsFolder} due to nonexistence.`)
-    fs.mkdirSync(reportsFolder);
-}
+  checkFolder()
 
   let apps = properties.apps;
   for (var x in apps) {
-    if(apps.hasOwnProperty(x)) {
+    if (apps.hasOwnProperty(x)) {
       applist.push(apps[x]);
     }
+  }
+}
+
+function checkFolder() {
+  if (!fs.existsSync(reportsFolder)) {
+    console.log(`Created ${reportsFolder} due to nonexistence.`)
+    fs.mkdirSync(reportsFolder);
   }
 }
 
@@ -44,9 +48,9 @@ function Reporter(ip, timestamp) {
   this.timestamp = timestamp;
 }
 
-(function() {
+(function () {
   Date.prototype.dateString = function () {
-    return `${this.getFullYear()}-${this.getMonth()+1}-${this.getDate()} ${this.getHours()}-${this.getMinutes()}.${this.getMilliseconds()}`;
+    return `${this.getFullYear()}-${this.getMonth() + 1}-${this.getDate()} ${this.getHours()}-${this.getMinutes()}.${this.getMilliseconds()}`;
   };
 })();
 
@@ -55,51 +59,51 @@ app.post(path, (req, res) => {
   let reporter = new Reporter(ip, new Date().getTime());
   let contains = false;
 
-  for(let i = 0 ; i < reporters.length ; i++) {
+  for (let i = 0; i < reporters.length; i++) {
     let currentReporter = reporters[i];
-    if(reporter.timestamp - currentReporter.timestamp > timeout) {
+    if (reporter.timestamp - currentReporter.timestamp > timeout) {
       reporters.splice(i, 1);
-    } else if(reporter.timestamp - currentReporter.timestamp < timeout && reporter.ip === currentReporter.ip) {
+    } else if (reporter.timestamp - currentReporter.timestamp < timeout && reporter.ip === currentReporter.ip) {
       contains = true;
     }
   }
-  if(!contains) {
+  if (!contains) {
     reporters.push(reporter);
   }
 
   console.log('POST /');
   console.log(req.body);
 
-  if(applist.includes(req.body.app) && req.body.report.length <= maxChars && !contains) {
+  if (applist.includes(req.body.app) && req.body.report.length <= maxChars && !contains) {
     res.writeHead(200, {
       'Content-Type': 'text/html',
     });
     res.end('Your report has been sent.');
     let file = `${reportsFolder}/${new Date().dateString()}-${req.body.app}.report`;
-    fs.appendFile(file, `Report=${req.body.report}`, function (err) {
+    fs.appendFile(file, decodeURI(`Report=${req.body.report}`), function (err) {
       if (err) console.error(err);
       console.log('Saved!');
     })
 
-  } else if(req.body.length > maxChars) {
+  } else if (req.body.length > maxChars) {
     res.writeHead(400, {
       'Content-Type': 'text/html',
     });
     res.end('Your report is longer then 500 characters.');
     console.log('Longer then 500 chars.');
 
-  } else if(!applist.includes(req.body.app)) {
+  } else if (!applist.includes(req.body.app)) {
     res.writeHead(400, {
       'Content-Type': 'text/html',
     });
     res.end('Your report does not supply a valid app identifier.');
     console.log('No valid app identifier.');
 
-  } else if(contains) {
+  } else if (contains) {
     res.writeHead(400, {
       'Content-Type': 'text/html',
     });
-    res.end(`A report can only be posted every ${timeout/1000} seconds.`);
+    res.end(`A report can only be posted every ${timeout / 1000} seconds.`);
     console.log('Too much reports.')
   }
 });
