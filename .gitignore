@@ -2,3 +2,4 @@
 node_modules/
 /report-a-bug.iml
 *.report
+reports/
