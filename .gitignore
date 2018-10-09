@@ -1,5 +1,5 @@
 .idea/
 node_modules/
 /report-a-bug.iml
-reports.log
-
+*.report
+reports/
