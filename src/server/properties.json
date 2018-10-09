@@ -1,0 +1,10 @@
+{
+    "path": "/report",
+    "port": "3000",
+    "timeoutPerIp": "30000",
+    "maxChars": "500",
+    "apps": [
+        "report-a-bug", "example-app"
+    ],
+    "reportsFolder": "./reports"
+}

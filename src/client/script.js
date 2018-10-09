@@ -1,12 +1,22 @@
+<<<<<<< HEAD
 const app = "report-a-bug"; // Put your app-identifier here
+=======
+>>>>>>> properties
 
 const server = "127.0.0.1:3000"; // Put your server IP here
 const path = "/report" // Put your custom path here.
 
 
+<<<<<<< HEAD
 addEventListeners();
 
 
+=======
+>>>>>>> properties
+
+<<<<<<< HEAD
+=======
+>>>>>>> properties
 
 function addEventListeners() {
     byId("textfield").addEventListener("keyup", maxLen);
@@ -38,9 +48,12 @@ function sendReport() {
     setTimeout(function () {
         byId("report").classList.toggle("invis");
     }, 1000);
+<<<<<<< HEAD
 
 
     postReport("http://127.0.0.1:3000/report", report, app);
+=======
+>>>>>>> properties
 }
 
 
@@ -61,4 +74,7 @@ function postReport(url, report, app) {
 // Wrapper for document.getElementById() to make everything easier.
 function byId(id) {
     return document.getElementById(id);
+<<<<<<< HEAD
+=======
+>>>>>>> properties
 }
